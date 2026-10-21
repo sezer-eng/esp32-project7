@@ -9,7 +9,6 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="النظام الذكي">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
@@ -64,7 +63,7 @@ body{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
 button.lbtn:hover{background:linear-gradient(135deg,#1de9ff,#2f8cff)}
 .grid-bg{background-image:linear-gradient(rgba(90,130,210,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(90,130,210,.07) 1px,transparent 1px),radial-gradient(900px 500px at 80% -10%,#1b2352,transparent);background-size:44px 44px,44px 44px,auto}
 .lcard{width:100%;max-width:400px;background:linear-gradient(180deg,#0f1b3a,#0b1430);border:1px solid #1b4a66;border-radius:30px;padding:28px 22px;text-align:center;color:#e8ecff;box-shadow:0 20px 60px #000a}
-.lcard img{width:116px;height:116px;border-radius:27px;display:block;margin:0 auto 14px;box-shadow:0 0 30px #1de9ff33}
+.lcard .logo-box{width:116px;height:116px;border-radius:27px;display:grid;place-items:center;margin:0 auto 14px;background:linear-gradient(135deg,#1de9ff,#2f8cff);box-shadow:0 0 30px #1de9ff33;font-size:50px}
 .lcard h2{margin:0 0 4px;font-size:24px;font-weight:800}
 .lcard .sub{margin:0 0 22px;color:#8a94c2;font-size:14px}
 .fld{position:relative;margin:12px 0}
@@ -86,7 +85,7 @@ button.tab.on,button.tab.on:hover{background:#14224d;color:#6ee0ff}
 #team[hidden]{display:none}
 #team .in{max-width:760px;margin:0 auto}
 .th{display:flex;justify-content:space-between;align-items:baseline;margin:6px 4px 18px}
-.th h2{margin:0;font-size:26px;font-weight:800}.th small{color:#8a94c2;font-size:14px}
+.th h2{margin:0;font-size:26px;font-weight:800}.th small{display:none}
 .sup{display:flex;align-items:center;gap:14px;padding:18px;border-radius:26px;border:1px solid #6b5a2a;background:linear-gradient(135deg,#2a2412,#15161f)}
 .av{--c:#6ee0ff;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;font-size:24px;font-weight:800;border:3px solid var(--c);color:var(--c);background:#14224d;flex:none}
 .sup small{display:block;color:#8a94c2;font-size:13px}.sup b{font-size:20px}
@@ -101,7 +100,7 @@ footer{text-align:center;font-size:12px;color:var(--mut);margin:18px 0 6px}
 <body>
 <div id="lg" class="grid-bg" style="position:fixed;inset:0;z-index:9999;background-color:#050914;display:none;align-items:center;justify-content:center;padding:20px;font-family:Cairo,Tahoma,sans-serif;overflow:auto">
 <form id="lgf" class="lcard">
-<img src="apple-touch-icon.png" alt="النظام الذكي" width="116" height="116">
+<div class="logo-box">🛡️</div>
 <h2>نظام المراقبة الذكي</h2>
 <p class="sub">لوحة مراقبة الحساسات</p>
 <div class="fld"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg><input id="lge" type="email" placeholder="البريد الإلكتروني" autocomplete="username" required></div>
@@ -122,11 +121,12 @@ if(v===OK){try{localStorage.setItem('auth',OK)}catch(x){}lg.style.display='none'
 </script>
 
 <section id="team" hidden><div class="in">
-<div class="th"><h2>فريق المشروع</h2><small>مشروع تخرج</small></div>
+<div class="th"><h2>فريق المشروع</h2></div>
 <div class="sup"><div class="av" style="--c:#ffd043">د</div><div><small>الإشراف على المشروع</small><b>د. بيادر عبد الرزاق</b></div></div>
 <div class="stu"><h3>الطلبة</h3>
 <div class="row"><div class="av" style="--c:#6ee0ff">م</div>مقتدى ثائر زكي</div>
 <div class="row"><div class="av" style="--c:#7b8cff">ع</div>عطا الله منعم</div>
+<div class="row"><div class="av" style="--c:#3ee0c4">م</div>مهدي مرتضى سبتي</div>
 </div>
 <button type="button" class="lbtn alt" id="logout" style="margin-top:22px">تسجيل الخروج</button>
 </div></section>
@@ -154,7 +154,7 @@ document.getElementById('logout').onclick=function(){try{localStorage.removeItem
 <main class="grid" id="grid"></main>
 
 <div class="ov" id="ov" hidden><div class="mod" role="dialog" aria-label="إعدادات الاتصال">
-<h2>إعدادات الاتصال</h2>
+22px}<h2>إعدادات الاتصال</h2>
 <div class="seg"><button id="m-local" class="act">شبكة محلية</button><button id="m-net">من أي مكان (إنترنت)</button></div>
 <label id="lb" for="addr"></label><input id="addr" dir="ltr" autocomplete="off">
 <p class="hint" id="hint"></p>
@@ -225,7 +225,6 @@ setInterval(function(){
  render();
 },10000);
 stamp();render();
-/* لربط ESP32 لاحقاً: استدعي updateData({temp:..,hum:..,gas:..,rain:..,flame:..,water:..}) */
 function updateData(o){Object.assign(S,o);stamp();render()}
 var live=false,ws=null,cfg={};
 try{cfg=JSON.parse(localStorage.getItem('cfg'))||{}}catch(e){}
@@ -277,7 +276,6 @@ setLive(false);connect();
 function applyMode(){document.querySelector('.sim').style.display=hasCfg()?'none':''}
 if(hasCfg()){S={temp:0,hum:0,gas:0,rain:0,flame:0,water:0};render()}
 applyMode();
-
 </script>
 <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');</script>
 </body>
