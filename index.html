@@ -95,6 +95,11 @@ button.tab.on,button.tab.on:hover{background:#14224d;color:#6ee0ff}
 .row{display:flex;align-items:center;gap:14px;padding:14px;border-radius:20px;background:#08101f;margin-top:10px;font-size:18px;font-weight:600}
 .row .av{width:56px;height:56px;font-size:22px}
 footer{text-align:center;font-size:12px;color:var(--mut);margin:18px 0 6px}
+
+.notif-box{border:1px solid #3ee07a;border-radius:18px;padding:14px;margin-bottom:14px;background:rgba(62,224,122,0.1);color:#e8ecff;display:none}
+.notif-box b{color:#3ee07a;display:block;margin-bottom:4px;font-size:15px}
+.notif-box span{font-size:13px;color:#8a94c2}
+
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>
@@ -105,7 +110,7 @@ footer{text-align:center;font-size:12px;color:var(--mut);margin:18px 0 6px}
 <h2>نظام المراقبة الذكي</h2>
 <p class="sub">لوحة مراقبة الحساسات</p>
 <div class="fld"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg><input id="lge" type="email" placeholder="البريد الإلكتروني" autocomplete="username" required></div>
-<div class="fld"><svg class="i" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><input id="lgp" type="password" placeholder="كلمة المرور (6 أحرف على الأقل)" autocomplete="current-password" minlength="6" required><button type="button" class="eye" id="eye" aria-label="إظهار كلمة المرور"><svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="sl" d="M4 4l16 16" style="display:none"/></svg></button></div>
+<div class="fld"><svg class="i" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><input id="lgp" type="password" placeholder="كلمة المرور (6 أحرف على الأقل)" autocomplete="current-password" minlength="6" required><button type="button" class="eye" id="eye" aria-label="إظهر كلمة المرور"><svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="sl" d="M4 4l16 16" style="display:none"/></svg></button></div>
 <div id="lgx" hidden style="color:#ff4d5e;font-size:13px;margin:6px 0">البريد أو كلمة المرور غير صحيحة</div>
 <button type="submit" class="lbtn">تسجيل الدخول</button>
 <p class="lnote">الدخول مخصص لفريق المشروع فقط</p>
@@ -139,7 +144,12 @@ d.onclick=function(){go('d')};m.onclick=function(){go('t')};
 document.getElementById('logout').onclick=function(){try{localStorage.removeItem('auth')}catch(e){}location.reload()};})();
 </script>
 
-<header><h1>نظام مراقبة متكامل</h1><div style="display:flex;align-items:center"><div class="live"><span id="cs">وضع تجريبي</span> · <span id="clock">--:--:--</span></div><button class="gear" id="snd" aria-label="كتم الصوت">🔔</button><button class="gear" id="gear" aria-label="إعدادات الاتصال">⚙️</button></div></header>
+<header><h1>نظام مراقبة متكامل</h1><div style="display:flex;align-items:center"><div class="live"><span id="cs">وضع تجريبي</span> · <span id="clock">--:--:--</span></div><button class="gear" id="snd" aria-label="تفعيل الإشعارات والتنبيه">🔔</button><button class="gear" id="gear" aria-label="إعدادات الاتصال">⚙️</button></div></header>
+
+<div class="notif-box" id="notif-box">
+ <b>تم تفعيل الإشعارات</b>
+ <span>ستصلك إشعارات حقيقية حتى لو التطبيق مسكّر.</span>
+</div>
 
 <div class="banner" id="banner"><div class="dot"></div><div><b id="bt">كل شيء آمن</b><span id="bs">جميع الحساسات ضمن الحدود الطبيعية</span></div></div>
 
@@ -177,9 +187,42 @@ var C=[
  {k:'flame',n:'حساس الحريق',ic:'🚨',c:'--f',u:'%',max:100,st:function(v){return hy('flame',v,50,21)?['إنذار: تم كشف لهب!',1]:['لا يوجد حريق',0]}},
  {k:'water',n:'مستوى الماء',ic:'🌊',c:'--w',u:'%',max:100,st:function(v){return hy('water',v,70,60)?['إنذار: خطر فيضان',1]:v>=50?['مرتفع',0]:['طبيعي',0]}}
 ];
-var AC=null,muted=false,alarmT=null;
+var AC=null,muted=false,alarmT=null,lastPushTitle="";
 function unlock(){try{if(!AC)AC=new (window.AudioContext||window.webkitAudioContext)();if(AC.state!=='running')AC.resume()}catch(e){}}
 ['click','touchstart','keydown'].forEach(function(ev){document.addEventListener(ev,unlock,{passive:true})});
+
+function triggerPushNotification(msg){
+ if('Notification' in window && Notification.permission === 'granted'){
+  if(msg !== lastPushTitle){
+   lastPushTitle = msg;
+   navigator.serviceWorker.getRegistration().then(function(reg){
+    if(reg){
+     reg.showNotification('نظام المراقبة الذكي', {
+      body: msg,
+      icon: 'apple-touch-icon.png',
+      badge: 'apple-touch-icon.png',
+      dir: 'rtl',
+      vibrate: [200, 100, 200]
+     });
+    } else {
+     new Notification('نظام المراقبة الذكي', { body: msg, icon: 'apple-touch-icon.png' });
+    }
+   });
+  }
+ }
+}
+
+function reqNotifPermission(){
+ if('Notification' in window){
+  Notification.requestPermission().then(function(perm){
+   if(perm === 'granted'){
+    document.getElementById('notif-box').style.display = 'block';
+    triggerPushNotification('تم تفعيل نظام الإشعارات والتنبيهات المباشرة بنجاح');
+   }
+  });
+ }
+}
+
 function beep(){
  if(muted)return;
  if(AC&&AC.state==='running'){try{var o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime;
@@ -188,14 +231,23 @@ function beep(){
  try{if(navigator.vibrate)navigator.vibrate([200,100,200])}catch(e){}
 }
 function startAlarm(){if(alarmT)return;beep();alarmT=setInterval(beep,1500)}
-function stopAlarm(){clearInterval(alarmT);alarmT=null}
-document.getElementById('snd').onclick=function(){muted=!muted;this.textContent=muted?'🔕':'🔔';if(muted)stopAlarm();else{unlock();render()}};
+function stopAlarm(){clearInterval(alarmT);alarmT=null;lastPushTitle=""}
+
+document.getElementById('snd').onclick=function(){
+ unlock();
+ reqNotifPermission();
+ muted=!muted;
+ this.textContent=muted?'🔕':'🔔';
+ if(muted)stopAlarm();else{render();}
+};
+
 var grid=document.getElementById('grid');
 C.forEach(function(d){
  var e=document.createElement('section');e.className='card';e.style.setProperty('--c','var('+d.c+')');
  e.innerHTML='<div class="top"><span>'+d.n+'</span><div class="ic">'+d.ic+'</div></div><div class="val"><span id="v-'+d.k+'"></span><small>'+d.u+'</small></div><div class="bar" id="b-'+d.k+'">'+'<i></i>'.repeat(20)+'</div><span class="chip" id="s-'+d.k+'"></span>';
  grid.appendChild(e);
 });
+
 function render(){
  var bad=[];
  C.forEach(function(d){
@@ -208,9 +260,17 @@ function render(){
  var b=document.getElementById('banner');b.className='banner'+(bad.length?' bad':'');
  document.getElementById('bt').textContent=bad.length?'تنبيه!':'كل شيء آمن';
  document.getElementById('bs').textContent=bad.length?bad.join(' • ')+((!AC||AC.state!=='running')&&!muted?' — المس الشاشة لتفعيل الصوت':''):'جميع الحساسات ضمن الحدود الطبيعية';
- if(bad.length)startAlarm();else stopAlarm();
+ 
+ if(bad.length){
+  startAlarm();
+  triggerPushNotification('تنبيه هام: ' + bad.join(' • '));
+ }else{
+  stopAlarm();
+ }
 }
+
 document.querySelectorAll('[data-s]').forEach(function(b){b.onclick=function(){
+ unlock();
  var s=b.dataset.s;
  if(s==='reset')S=Object.assign({},S0);
  if(s==='rain')S.rain=82;
@@ -219,6 +279,7 @@ document.querySelectorAll('[data-s]').forEach(function(b){b.onclick=function(){
  if(s==='water')S.water=92;
  render();
 }});
+
 setInterval(function(){
  if(!hasCfg()){S.temp=Math.max(0,Math.min(50,S.temp+(Math.random()-.5)*.4));
  S.hum=Math.max(20,Math.min(90,S.hum+(Math.random()-.5)*.6));}
@@ -226,6 +287,7 @@ setInterval(function(){
  render();
 },10000);
 stamp();render();
+
 function updateData(o){Object.assign(S,o);stamp();render()}
 var live=false,ws=null,cfg={};
 try{cfg=JSON.parse(localStorage.getItem('cfg'))||{}}catch(e){}
@@ -233,17 +295,21 @@ var HH=decodeURIComponent((location.hash||'').slice(1));if(HH&&/^[A-Za-z0-9_\-\/
 var mode=cfg.mode||'local';
 var T={local:['عنوان الـ ESP32 على شبكة البيت','192.168.1.50','إذا فتحت الصفحة من عنوان الـ ESP32 (http://IP) تتصل تلقائياً بدون أي إعداد. وإلا اكتب الـ IP الذي يطبعه Serial Monitor. الاتصال عبر المنفذ 81 ويعمل فقط على نفس شبكة الواي فاي.'],
  net:['اسم القناة (Topic)','esp32-sensors-xxxx/data','يتصل عبر وسيط MQTT مجاني فيعمل من أي شبكة. اكتب نفس اسم القناة الذي يطبعه الـ ESP32 في Serial Monitor. افتح الصفحة من رابط https أو من ملف، وليس من عنوان الـ ESP32.']};
+
 function setMode(m){mode=m;
  document.getElementById('m-local').className=m==='local'?'act':'';
  document.getElementById('m-net').className=m==='net'?'act':'';
  var t=T[m];document.getElementById('lb').textContent=t[0];
  var a=document.getElementById('addr');a.placeholder=t[1];a.value=cfg[m]||'';
  document.getElementById('hint').textContent=t[2];}
+
 function hasCfg(){var m=cfg.mode||'local';return !!(cfg[m]||(m==='local'&&location.protocol==='http:'&&location.hostname))}
 function setLive(on){document.getElementById('cs').textContent=on?'متصل':(hasCfg()?'غير متصل':'وضع تجريبي')}
 var mq=null,lastMsg=0;
+
 function drop(){if(ws){ws.onclose=null;try{ws.close()}catch(e){}ws=null}if(mq){try{mq.end(true)}catch(e){}mq=null}live=false}
 function got(d){lastMsg=Date.now();live=true;setLive(true);updateData(d)}
+
 function connect(){
  drop();var m=cfg.mode||'local',a=cfg[m];
  if(m==='local'&&!a&&location.protocol==='http:')a=location.hostname;
@@ -262,6 +328,7 @@ function connect(){
  w.onmessage=function(e){try{got(JSON.parse(e.data))}catch(x){}};
  w.onclose=function(){live=false;setLive(false);setTimeout(function(){if(ws===w)connect()},5000)};
 }
+
 setInterval(function(){if(live&&Date.now()-lastMsg>35000){live=false;setLive(false)}},5000);
 var ov=document.getElementById('ov');
 document.getElementById('gear').onclick=function(){setMode(cfg.mode||'local');ov.hidden=false};
