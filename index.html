@@ -78,9 +78,9 @@ button.lbtn:hover{background:linear-gradient(135deg,#1de9ff,#2f8cff)}
 button.lbtn.alt,button.lbtn.alt:hover{background:#10224a;color:#e8ecff;border:1px solid #1b2a55}
 .lnote{margin:14px 0 0;color:#8a94c2;font-size:12px}
 
-.tabs{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;gap:4px;padding:10px 8px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(8,12,28,.94);backdrop-filter:blur(10px);border-top:1px solid #1f2a52;max-width:760px;margin-inline:auto}
-button.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border:0;border-radius:14px;background:transparent;color:#8a94c2;font:inherit;font-size:10px;font-weight:600;cursor:pointer}
-button.tab span{font-size:18px}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;gap:3px;padding:8px 4px calc(8px + env(safe-area-inset-bottom,0px));background:rgba(8,12,28,.96);backdrop-filter:blur(10px);border-top:1px solid #1f2a52;max-width:760px;margin-inline:auto}
+button.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 1px;border:0;border-radius:12px;background:transparent;color:#8a94c2;font:inherit;font-size:9.5px;font-weight:600;cursor:pointer}
+button.tab span{font-size:16px}
 button.tab:hover{background:#101b3f}
 button.tab.on,button.tab.on:hover{background:#14224d;color:#6ee0ff}
 
@@ -89,7 +89,7 @@ button.tab.on,button.tab.on:hover{background:#14224d;color:#6ee0ff}
 .page-section .in{max-width:760px;margin:0 auto}
 
 .th{display:flex;justify-content:space-between;align-items:baseline;margin:6px 4px 18px}
-.th h2{margin:0;font-size:24px;font-weight:800}
+.th h2{margin:0;font-size:22px;font-weight:800}
 
 .doc-card{background:#0d1733;border:1px solid #1b2a55;border-radius:24px;padding:20px;margin-bottom:16px;line-height:1.8}
 .doc-card h3{margin-top:0;color:#6ee0ff;font-size:18px;margin-bottom:10px}
@@ -97,6 +97,11 @@ button.tab.on,button.tab.on:hover{background:#14224d;color:#6ee0ff}
 .doc-card ul{margin:0;padding-right:20px;color:#e8ecff;font-size:15px}
 .doc-card li{margin-bottom:10px;text-align:justify}
 .doc-card li b{color:#6ee0ff}
+
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.comp-item{background:#0d1733;border:1px solid #1b2a55;border-radius:20px;padding:12px;text-align:center}
+.comp-item img{width:100%;height:120px;object-fit:cover;border-radius:14px;margin-bottom:8px;background:#050c1c}
+.comp-item h4{margin:6px 0 0;font-size:14px;color:#e8ecff}
 
 .sup{display:flex;align-items:center;gap:14px;padding:18px;border-radius:26px;border:1px solid #6b5a2a;background:linear-gradient(135deg,#2a2412,#15161f)}
 .av{--c:#6ee0ff;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;font-size:24px;font-weight:800;border:3px solid var(--c);color:var(--c);background:#14224d;flex:none}
@@ -136,7 +141,15 @@ var v=H(document.getElementById('lge').value.trim().toLowerCase()+'|'+document.g
 if(v===OK){try{localStorage.setItem('auth',OK)}catch(x){}lg.style.display='none'}else{document.getElementById('lgx').hidden=false}}})();
 </script>
 
-<!-- قسم شرح المشروع -->
+<!-- 1. مقدمة المشروع -->
+<section id="page-intro" class="page-section" hidden><div class="in">
+<div class="th"><h2>مقدمة المشروع</h2></div>
+<div class="doc-card">
+ <p>يهدف هذا المشروع إلى تصميم وتنفيذ نظام مراقبة وأمان ذكي متكامل يعتمد على متحكم ESP32 للتعامل مع المخاطر المنزلية والبيئية الطارئة مثل تسرب الغاز اندلاع الحرائق وارتفاع مناسيب المياه في الخزانات فضلاً عن رصد الظروف الجوية كالحرارة والرطوبة والأمطار يجمع النظام بين لوحة تحكم إلكترونية تتضمن شاشة عرض وحساسات دقيقة وبين تطبيق ويب تفاعلي مرتبط بالإنترنت لإرسال التنبيهات الفورية والإشعارات الصوتية والمرئية عبر الليد والجرس مما يتيح للمستخدمين مراقبة البيئة المحيطة والتحكم بها بكفاءة عالية وبشكل لحظي سواء من داخل المكان أو عن بُعد.</p>
+</div>
+</div></section>
+
+<!-- 2. شرح المشروع -->
 <section id="page-explain" class="page-section" hidden><div class="in">
 <div class="th"><h2>شرح المشروع</h2></div>
 <div class="doc-card">
@@ -145,9 +158,23 @@ if(v===OK){try{localStorage.setItem('auth',OK)}catch(x){}lg.style.display='none'
 </div>
 </div></section>
 
-<!-- قسم الفوائد المستقبلية والتطبيقات العملية -->
+<!-- 3. مكونات المشروع -->
+<section id="page-comps" class="page-section" hidden><div class="in">
+<div class="th"><h2>مكونات المشروع</h2></div>
+<div class="comp-grid">
+ <div class="comp-item"><img src="image_16.png" alt="قطعة المتحكم"><h4>قطعة المتحكم</h4></div>
+ <div class="comp-item"><img src="image_17.png" alt="شاشة المراقبة"><h4>شاشة المراقبة</h4></div>
+ <div class="comp-item"><img src="image_18.png" alt="حساس الحرارة والرطوبة"><h4>حساس الحرارة والرطوبة</h4></div>
+ <div class="comp-item"><img src="image_19.png" alt="حساس الغاز"><h4>حساس الغاز</h4></div>
+ <div class="comp-item"><img src="image_20.png" alt="محولة خافضة للجهد"><h4>محولة خافضة للجهد</h4></div>
+ <div class="comp-item"><img src="image_21.png" alt="حساس مطر"><h4>حساس مطر</h4></div>
+ <div class="comp-item"><img src="image_22.png" alt="مفتاح تشغيل المشروع"><h4>مفتاح تشغيل المشروع</h4></div>
+</div>
+</div></section>
+
+<!-- 4. الفوائد المستقبلية -->
 <section id="page-benefits" class="page-section" hidden><div class="in">
-<div class="th"><h2>الفوائد المستقبلية والتطبيقات العملية للمشروع</h2></div>
+<div class="th"><h2>الفوائد المستقبلية والتطبيقات العملية</h2></div>
 <div class="doc-card">
  <ul>
   <li><b>الحماية المبكرة:</b> الكشف السريع عن تسربات الغاز والحرائق لمنع الخسائر البشرية والمادية.</li>
@@ -159,7 +186,7 @@ if(v===OK){try{localStorage.setItem('auth',OK)}catch(x){}lg.style.display='none'
 </div>
 </div></section>
 
-<!-- قسم خاتمة المشروع -->
+<!-- 5. خاتمة المشروع -->
 <section id="page-conclusion" class="page-section" hidden><div class="in">
 <div class="th"><h2>خاتمة المشروع</h2></div>
 <div class="doc-card">
@@ -167,8 +194,8 @@ if(v===OK){try{localStorage.setItem('auth',OK)}catch(x){}lg.style.display='none'
 </div>
 </div></section>
 
-<!-- قسم فريق المشروع -->
-<section id="team" class="page-section" hidden><div class="in">
+<!-- 6. فريق المشروع -->
+<section id="page-team" class="page-section" hidden><div class="in">
 <div class="th"><h2>فريق المشروع</h2></div>
 <div class="sup"><div class="av" style="--c:#ffd043">د</div><div><small>الإشراف على المشروع</small><b>د. بيادر عبد الرزاق</b></div></div>
 <div class="stu"><h3>الطلبة</h3>
@@ -179,49 +206,60 @@ if(v===OK){try{localStorage.setItem('auth',OK)}catch(x){}lg.style.display='none'
 <button type="button" class="lbtn alt" id="logout" style="margin-top:22px">تسجيل الخروج</button>
 </div></section>
 
-<!-- شريط التنقل السفلي المحدث -->
+<!-- شريط التنقل السفلي المحدث بـ 7 خانات كاملة وبدون نقص -->
 <nav class="tabs" aria-label="التنقل">
- <button type="button" class="tab on" id="tab-d"><span>📊</span>الرئيسية</button>
+ <button type="button" class="tab on" id="tab-dash"><span>📊</span>الرئيسية</button>
+ <button type="button" class="tab" id="tab-intro"><span>📌</span>المقدمة</button>
  <button type="button" class="tab" id="tab-exp"><span>📖</span>الشرح</button>
+ <button type="button" class="tab" id="tab-comps"><span>⚙️</span>المكونات</button>
  <button type="button" class="tab" id="tab-ben"><span>🚀</span>الفوائد</button>
- <button type="button" class="tab" id="tab-con"><span>📌</span>الخاتمة</button>
- <button type="button" class="tab" id="tab-t"><span>👥</span>الفريق</button>
+ <button type="button" class="tab" id="tab-con"><span>📝</span>الخاتمة</button>
+ <button type="button" class="tab" id="tab-team"><span>👥</span>الفريق</button>
 </nav>
 
 <script>
 (function(){
- var secDash = document.getElementById('grid').parentNode; // اللوحة الرئيسية وما حولها
+ var secIntro = document.getElementById('page-intro');
  var secExp = document.getElementById('page-explain');
+ var secComps = document.getElementById('page-comps');
  var secBen = document.getElementById('page-benefits');
  var secCon = document.getElementById('page-conclusion');
- var secTeam = document.getElementById('team');
+ var secTeam = document.getElementById('page-team');
 
- var tD = document.getElementById('tab-d');
+ var tDash = document.getElementById('tab-dash');
+ var tIntro = document.getElementById('tab-intro');
  var tExp = document.getElementById('tab-exp');
+ var tComps = document.getElementById('tab-comps');
  var tBen = document.getElementById('tab-ben');
  var tCon = document.getElementById('tab-con');
- var tT = document.getElementById('tab-t');
+ var tTeam = document.getElementById('tab-team');
 
- function go(tab){
+ function switchTab(tab){
+  secIntro.hidden = (tab !== 'intro');
   secExp.hidden = (tab !== 'exp');
+  secComps.hidden = (tab !== 'comps');
   secBen.hidden = (tab !== 'ben');
   secCon.hidden = (tab !== 'con');
-  secTeam.hidden = (tab !== 't');
+  secTeam.hidden = (tab !== 'team');
 
-  tD.classList.toggle('on', tab === 'd');
+  tDash.classList.toggle('on', tab === 'dash');
+  tIntro.classList.toggle('on', tab === 'intro');
   tExp.classList.toggle('on', tab === 'exp');
+  tComps.classList.toggle('on', tab === 'comps');
   tBen.classList.toggle('on', tab === 'ben');
   tCon.classList.toggle('on', tab === 'con');
-  tT.classList.toggle('on', tab === 't');
+  tTeam.classList.toggle('on', tab === 'team');
 
   window.scrollTo(0,0);
  }
 
- tD.onclick = function(){ go('d'); };
- tExp.onclick = function(){ go('exp'); };
- tBen.onclick = function(){ go('ben'); };
- tCon.onclick = function(){ go('con'); };
- tT.onclick = function(){ go('t'); };
+ tDash.onclick = function(){ switchTab('dash'); };
+ tIntro.onclick = function(){ switchTab('intro'); };
+ tExp.onclick = function(){ switchTab('exp'); };
+ tComps.onclick = function(){ switchTab('comps'); };
+ tBen.onclick = function(){ switchTab('ben'); };
+ tCon.onclick = function(){ switchTab('con'); };
+ tTeam.onclick = function(){ switchTab('team'); };
 
  document.getElementById('logout').onclick = function(){
   try{ localStorage.removeItem('auth'); }catch(e){}
