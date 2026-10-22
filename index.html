@@ -77,16 +77,27 @@ button.lbtn:hover{background:linear-gradient(135deg,#1de9ff,#2f8cff)}
 .lbtn{width:100%;padding:17px;margin-top:10px;border-radius:22px;border:0;background:linear-gradient(135deg,#1de9ff,#2f8cff);color:#04122b;font:inherit;font-weight:800;font-size:17px;cursor:pointer}
 button.lbtn.alt,button.lbtn.alt:hover{background:#10224a;color:#e8ecff;border:1px solid #1b2a55}
 .lnote{margin:14px 0 0;color:#8a94c2;font-size:12px}
-.tabs{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;gap:8px;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(8,12,28,.94);backdrop-filter:blur(10px);border-top:1px solid #1f2a52;max-width:760px;margin-inline:auto}
-button.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 0;border:0;border-radius:16px;background:transparent;color:#8a94c2;font:inherit;font-size:12px;font-weight:600;cursor:pointer}
-button.tab span{font-size:20px}
+
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;gap:4px;padding:10px 8px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(8,12,28,.94);backdrop-filter:blur(10px);border-top:1px solid #1f2a52;max-width:760px;margin-inline:auto}
+button.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border:0;border-radius:14px;background:transparent;color:#8a94c2;font:inherit;font-size:10px;font-weight:600;cursor:pointer}
+button.tab span{font-size:18px}
 button.tab:hover{background:#101b3f}
 button.tab.on,button.tab.on:hover{background:#14224d;color:#6ee0ff}
-#team{position:fixed;inset:0;z-index:40;overflow:auto;background:radial-gradient(900px 500px at 80% -10%,#1b2352,transparent),#0a0e1f;padding:calc(18px + env(safe-area-inset-top,0px)) 16px 120px}
-#team[hidden]{display:none}
-#team .in{max-width:760px;margin:0 auto}
+
+.page-section{position:fixed;inset:0;z-index:40;overflow:auto;background:radial-gradient(900px 500px at 80% -10%,#1b2352,transparent),#0a0e1f;padding:calc(18px + env(safe-area-inset-top,0px)) 16px 120px}
+.page-section[hidden]{display:none}
+.page-section .in{max-width:760px;margin:0 auto}
+
 .th{display:flex;justify-content:space-between;align-items:baseline;margin:6px 4px 18px}
-.th h2{margin:0;font-size:26px;font-weight:800}.th small{display:none}
+.th h2{margin:0;font-size:24px;font-weight:800}
+
+.doc-card{background:#0d1733;border:1px solid #1b2a55;border-radius:24px;padding:20px;margin-bottom:16px;line-height:1.8}
+.doc-card h3{margin-top:0;color:#6ee0ff;font-size:18px;margin-bottom:10px}
+.doc-card p{color:#e8ecff;font-size:15px;margin:0;text-align:justify}
+.doc-card ul{margin:0;padding-right:20px;color:#e8ecff;font-size:15px}
+.doc-card li{margin-bottom:10px;text-align:justify}
+.doc-card li b{color:#6ee0ff}
+
 .sup{display:flex;align-items:center;gap:14px;padding:18px;border-radius:26px;border:1px solid #6b5a2a;background:linear-gradient(135deg,#2a2412,#15161f)}
 .av{--c:#6ee0ff;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;font-size:24px;font-weight:800;border:3px solid var(--c);color:var(--c);background:#14224d;flex:none}
 .sup small{display:block;color:#8a94c2;font-size:13px}.sup b{font-size:20px}
@@ -94,7 +105,6 @@ button.tab.on,button.tab.on:hover{background:#14224d;color:#6ee0ff}
 .stu h3{margin:0 0 6px;font-size:18px}
 .row{display:flex;align-items:center;gap:14px;padding:14px;border-radius:20px;background:#08101f;margin-top:10px;font-size:18px;font-weight:600}
 .row .av{width:56px;height:56px;font-size:22px}
-footer{text-align:center;font-size:12px;color:var(--mut);margin:18px 0 6px}
 
 .notif-box{border:1px solid #3ee07a;border-radius:18px;padding:14px;margin-bottom:14px;background:rgba(62,224,122,0.1);color:#e8ecff;display:none;transition:opacity 0.5s ease}
 .notif-box b{color:#3ee07a;display:block;margin-bottom:4px;font-size:15px}
@@ -126,7 +136,39 @@ var v=H(document.getElementById('lge').value.trim().toLowerCase()+'|'+document.g
 if(v===OK){try{localStorage.setItem('auth',OK)}catch(x){}lg.style.display='none'}else{document.getElementById('lgx').hidden=false}}})();
 </script>
 
-<section id="team" hidden><div class="in">
+<!-- قسم شرح المشروع -->
+<section id="page-explain" class="page-section" hidden><div class="in">
+<div class="th"><h2>شرح المشروع</h2></div>
+<div class="doc-card">
+ <p>يمثل هذا المشروع نظاماً متكاملاً للإنذار والمراقبة البيئية والمنزلية الذكية وراح يعتمد في عمله الأساسي على وحدة التحكم الدقيقة (ESP32). يقوم النظام برصد مجموعة واسعة من الحساسات الحيوية والبيئية بشكل لحظي ومستمر وتشمل: حساس الحرارة والرطوبة (DHT11) لمتابعة الطقس والجو وحساس الغاز (MQ-2) لكشف أي تسريبات خطيرة وحساس اللهب لرصد الحرائق إضافة إلى ذلك حساس الماء والمطر لمتابعة مناسيب المياه في الخزانات وحالة الطقس.</p>
+ <p style="margin-top:14px;">تم تصميم النظام ليعمل بنظام استجابة مزدوج (محلي وعن بعد) ففي حالة حدوث أي طارئ أو خطر (مثل تسرب الغاز أو ارتفاع منسوب الماء أو كشف لهب) راح يتدخل النظام محلياً عبر تشغيل جرس الإنذار الصوتي (Buzzer) وإضاءة ليد الإنذار الأحمر (بينما يطفأ الليد الأخضر المخصص للأمان) وتظهر رسائل تنبيه باللغة الإنجليزية على شاشة العرض (LCD) الموصولة بالمتحكم أما في الوضع الطبيعي والآمن فيعمل الليد الأخضر للإشارة إلى استقرار الأوضاع مع ذلك يتصل المتحكم عبر شبكة الإنترنت وتطبيق الويب التفاعلي ليقوم بتحديث قراءات الحساسات وإرسال الإشعارات المباشرة إلى موبايل حتى لو كان التطبيق مغلقاً مما يوفر أقصى درجات الأمان والسيطرة اللحظية على المكان.</p>
+</div>
+</div></section>
+
+<!-- قسم الفوائد المستقبلية والتطبيقات العملية -->
+<section id="page-benefits" class="page-section" hidden><div class="in">
+<div class="th"><h2>الفوائد المستقبلية والتطبيقات العملية للمشروع</h2></div>
+<div class="doc-card">
+ <ul>
+  <li><b>الحماية المبكرة:</b> الكشف السريع عن تسربات الغاز والحرائق لمنع الخسائر البشرية والمادية.</li>
+  <li><b>منع الفيضانات:</b> مراقبة مستمرة لمناسيب المياه في الخزانات لتجنب الطفح المفاجئ.</li>
+  <li><b>المتابعة عن بعد:</b> إمكانية مراقبة المنزل واستلام التنبيهات الفورية عبر الهاتف في أي وقت ومن أي مكان.</li>
+  <li><b>قابلية التطوير:</b> سهولة ربط النظام لاحقاً بأنظمة المنزل الذكي أو إضافة حساسات جديدة.</li>
+  <li><b>تقليل التكاليف:</b> تقليل الأعطال والصيانة المفاجئة بفضل الكفاءة التشغيلية العاليه.</li>
+ </ul>
+</div>
+</div></section>
+
+<!-- قسم خاتمة المشروع -->
+<section id="page-conclusion" class="page-section" hidden><div class="in">
+<div class="th"><h2>خاتمة المشروع</h2></div>
+<div class="doc-card">
+ <p>في ختام هذا المشروع تم بنجاح تصميم وتنفيذ نظام مراقبة وأمان ذكي متكامل يعتمد على متحكم ESP32 ومجموعة من الحساسات الدقيقة مدعوماً بتطبيق ويب تفاعلي لمتابعة الحالة البيئية والمنزلية لحظياً نجح النظام في تحقيق أهدافه من خلال توفير إنذار مزدوج (صوتي ومرئي) وتنبيهات فورية تضمن الكشف المبكر عن المخاطر كالحرائق وتسربات الغاز وفيضانات المياه مما يوفر أقصى درجات الأمان للمستخدم مع إمكانية التطوير المستقبلي بسهولة.</p>
+</div>
+</div></section>
+
+<!-- قسم فريق المشروع -->
+<section id="team" class="page-section" hidden><div class="in">
 <div class="th"><h2>فريق المشروع</h2></div>
 <div class="sup"><div class="av" style="--c:#ffd043">د</div><div><small>الإشراف على المشروع</small><b>د. بيادر عبد الرزاق</b></div></div>
 <div class="stu"><h3>الطلبة</h3>
@@ -136,12 +178,56 @@ if(v===OK){try{localStorage.setItem('auth',OK)}catch(x){}lg.style.display='none'
 </div>
 <button type="button" class="lbtn alt" id="logout" style="margin-top:22px">تسجيل الخروج</button>
 </div></section>
-<nav class="tabs" aria-label="التنقل"><button type="button" class="tab on" id="tab-d"><span>📊</span>لوحة المراقبة</button><button type="button" class="tab" id="tab-t"><span>👥</span>فريق المشروع</button></nav>
+
+<!-- شريط التنقل السفلي المحدث -->
+<nav class="tabs" aria-label="التنقل">
+ <button type="button" class="tab on" id="tab-d"><span>📊</span>الرئيسية</button>
+ <button type="button" class="tab" id="tab-exp"><span>📖</span>الشرح</button>
+ <button type="button" class="tab" id="tab-ben"><span>🚀</span>الفوائد</button>
+ <button type="button" class="tab" id="tab-con"><span>📌</span>الخاتمة</button>
+ <button type="button" class="tab" id="tab-t"><span>👥</span>الفريق</button>
+</nav>
+
 <script>
-(function(){var t=document.getElementById('team'),d=document.getElementById('tab-d'),m=document.getElementById('tab-t');
-function go(x){t.hidden=(x!=='t');d.classList.toggle('on',x==='d');m.classList.toggle('on',x==='t');window.scrollTo(0,0);t.scrollTop=0}
-d.onclick=function(){go('d')};m.onclick=function(){go('t')};
-document.getElementById('logout').onclick=function(){try{localStorage.removeItem('auth')}catch(e){}location.reload()};})();
+(function(){
+ var secDash = document.getElementById('grid').parentNode; // اللوحة الرئيسية وما حولها
+ var secExp = document.getElementById('page-explain');
+ var secBen = document.getElementById('page-benefits');
+ var secCon = document.getElementById('page-conclusion');
+ var secTeam = document.getElementById('team');
+
+ var tD = document.getElementById('tab-d');
+ var tExp = document.getElementById('tab-exp');
+ var tBen = document.getElementById('tab-ben');
+ var tCon = document.getElementById('tab-con');
+ var tT = document.getElementById('tab-t');
+
+ function go(tab){
+  secExp.hidden = (tab !== 'exp');
+  secBen.hidden = (tab !== 'ben');
+  secCon.hidden = (tab !== 'con');
+  secTeam.hidden = (tab !== 't');
+
+  tD.classList.toggle('on', tab === 'd');
+  tExp.classList.toggle('on', tab === 'exp');
+  tBen.classList.toggle('on', tab === 'ben');
+  tCon.classList.toggle('on', tab === 'con');
+  tT.classList.toggle('on', tab === 't');
+
+  window.scrollTo(0,0);
+ }
+
+ tD.onclick = function(){ go('d'); };
+ tExp.onclick = function(){ go('exp'); };
+ tBen.onclick = function(){ go('ben'); };
+ tCon.onclick = function(){ go('con'); };
+ tT.onclick = function(){ go('t'); };
+
+ document.getElementById('logout').onclick = function(){
+  try{ localStorage.removeItem('auth'); }catch(e){}
+  location.reload();
+ };
+})();
 </script>
 
 <header><h1>نظام مراقبة متكامل</h1><div style="display:flex;align-items:center"><div class="live"><span id="cs">وضع تجريبي</span> · <span id="clock">--:--:--</span></div><button class="gear" id="snd" aria-label="تفعيل الإشعارات والتنبيه">🔕</button><button class="gear" id="gear" aria-label="إعدادات الاتصال">⚙️</button></div></header>
@@ -224,7 +310,7 @@ function reqNotifPermission(){
     if(notifTimer) clearTimeout(notifTimer);
     notifTimer = setTimeout(function(){
      box.style.display = 'none';
-    }, 20000);
+    }, 10000);
    }
   });
  }
@@ -296,7 +382,7 @@ setInterval(function(){
  S.hum=Math.max(20,Math.min(90,S.hum+(Math.random()-.5)*.6));}
  stamp();
  render();
-},10000);
+}, 10000);
 stamp();render();
 
 function updateData(o){Object.assign(S,o);stamp();render()}
