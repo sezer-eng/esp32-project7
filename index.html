@@ -100,7 +100,7 @@ button.tab.on,button.tab.on:hover{background:#14224d;color:#6ee0ff}
 
 .comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
 .comp-item{background:#0d1733;border:1px solid #1b2a55;border-radius:20px;padding:12px;text-align:center}
-.comp-item img{width:100%;height:130px;object-fit:cover;border-radius:14px;margin-bottom:8px;background:#050c1c}
+.comp-item img{width:100%;height:140px;object-fit:contain;border-radius:14px;margin-bottom:8px;background:#ffffff;padding:6px}
 .comp-item h4{margin:6px 0 0;font-size:13px;color:#e8ecff}
 
 .sup{display:flex;align-items:center;gap:14px;padding:18px;border-radius:26px;border:1px solid #6b5a2a;background:linear-gradient(135deg,#2a2412,#15161f)}
@@ -158,25 +158,25 @@ if(v===OK){try{localStorage.setItem('auth',OK)}catch(x){}lg.style.display='none'
 </div>
 </div></section>
 
-<!-- 3. مكونات المشروع (17 عنصر بصورها الحقيقية) -->
+<!-- 3. مكونات المشروع (مرتبة ومصححة الأسماء والأحجام) -->
 <section id="page-comps" class="page-section" hidden><div class="in">
 <div class="th"><h2>مكونات المشروع</h2></div>
 <div class="comp-grid">
- <div class="comp-item"><img src="Screenshot 2026-10-22 052547.png" alt="مكون 1"><h4>مقاومة / قطعة إلكترونية</h4></div>
- <div class="comp-item"><img src="Screenshot 2026-10-22 052655.png" alt="لد أخضر"><h4>لد ضوئي أخضر</h4></div>
- <div class="comp-item"><img src="Screenshot 2026-10-22 052713.png" alt="لد أحمر"><h4>لد ضوئي أحمر</h4></div>
- <div class="comp-item"><img src="Screenshot 2026-10-22 052726.png" alt="مقاومة كهربائية"><h4>مقاومة كهربائية</h4></div>
- <div class="comp-item"><img src="Screenshot 2026-10-22 052744.png" alt="أسلاك توصيل"><h4>أسلاك توصيل (Jumper)</h4></div>
- <div class="comp-item"><img src="Screenshot 2026-10-22 052801.png" alt="قاعدة تركيب"><h4>قاعدة تركيب المتحكم</h4></div>
- <div class="comp-item"><img src="Screenshot 2026-10-22 052837.png" alt="محولة خافضة للجهد"><h4>محولة خافضة للجهد</h4></div>
  <div class="comp-item"><img src="Screenshot 2026-10-22 052858.png" alt="قطعة المتحكم ESP32"><h4>قطعة المتحكم (ESP32)</h4></div>
- <div class="comp-item"><img src="Screenshot 2026-10-22 052914.png" alt="بطارية"><h4>بطارية التغذية</h4></div>
- <div class="comp-item"><img src="Screenshot 2026-10-22 052929.png" alt="حامل بطاريات"><h4>حامل بطاريات التغذية</h4></div>
  <div class="comp-item"><img src="Screenshot 2026-10-22 052952.png" alt="شاشة المراقبة LCD"><h4>شاشة المراقبة (LCD)</h4></div>
+ <div class="comp-item"><img src="Screenshot 2026-10-22 052801.png" alt="قاعدة تركيب"><h4>قاعدة تركيب المتحكم</h4></div>
+ <div class="comp-item"><img src="Screenshot 2026-10-22 053044.png" alt="حساس الغاز MQ-2"><h4>حساس الغاز (MQ-2)</h4></div>
  <div class="comp-item"><img src="Screenshot 2026-10-22 053010.png" alt="حساس المطر"><h4>حساس المطر</h4></div>
  <div class="comp-item"><img src="Screenshot 2026-10-22 053027.png" alt="حساس الماء"><h4>حساس مستوى الماء</h4></div>
- <div class="comp-item"><img src="Screenshot 2026-10-22 053044.png" alt="حساس الغاز MQ-2"><h4>حساس الغاز (MQ-2)</h4></div>
- <div class="comp-item"><img src="Screenshot 2026-10-22 053102.png" alt="مصدر التغذية"><h4>مقطورة / مصدر التغذية</h4></div>
+ <div class="comp-item"><img src="Screenshot 2026-10-22 052837.png" alt="محولة خافضة للجهد"><h4>محولة خافضة للجهد</h4></div>
+ <div class="comp-item"><img src="Screenshot 2026-10-22 052744.png" alt="أسلاك توصيل"><h4>أسلاك توصيل (Jumper)</h4></div>
+ <div class="comp-item"><img src="Screenshot 2026-10-22 052655.png" alt="لد أخضر"><h4>لد ضوئي أخضر</h4></div>
+ <div class="comp-item"><img src="Screenshot 2026-10-22 052713.png" alt="لد أحمر"><h4>لد ضوئي أحمر</h4></div>
+ <div class="comp-item"><img src="Screenshot 2026-10-22 052547.png" alt="مفتاح التشغيل"><h4>مفتاح تشغيل المشروع</h4></div>
+ <div class="comp-item"><img src="Screenshot 2026-10-22 052726.png" alt="مقاومة كهربائية"><h4>مقاومة كهربائية</h4></div>
+ <div class="comp-item"><img src="Screenshot 2026-10-22 052914.png" alt="بطارية"><h4>بطارية التغذية</h4></div>
+ <div class="comp-item"><img src="Screenshot 2026-10-22 052929.png" alt="حامل بطاريات"><h4>حامل بطاريات التغذية</h4></div>
+ <div class="comp-item"><img src="Screenshot 2026-10-22 053102.png" alt="مصدر التغذية"><h4>مصدر / محولة التغذية</h4></div>
 </div>
 </div></section>
 
