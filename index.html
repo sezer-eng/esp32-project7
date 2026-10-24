@@ -34,6 +34,19 @@ button{font:inherit;font-size:13px;font-weight:600;color:#ffcf6b;background:#2c2
 button:hover{background:#3a2d16}button:focus-visible{outline:2px solid var(--g)}
 button.reset{color:var(--txt);background:#1f2a52}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* تأثير البريق والنيون المتحرك والشامل لكل الكروت والأقسام بالموقع */
+@keyframes neonGlow {
+  0% { box-shadow: 0 0 15px #1de9ff, inset 0 0 10px #1de9ff; border-color: #1de9ff; }
+  33% { box-shadow: 0 0 25px #9b7bff, inset 0 0 15px #9b7bff; border-color: #9b7bff; }
+  66% { box-shadow: 0 0 25px #ffd043, inset 0 0 15px #ffd043; border-color: #ffd043; }
+  100% { box-shadow: 0 0 20px #3ee0c4, inset 0 0 10px #3ee0c4; border-color: #3ee0c4; }
+}
+.card, .doc-card, .comp-item, .sup, .stu, .neon-design-card {
+  animation: neonGlow 5s infinite alternate;
+  transition: transform 0.3s ease;
+}
+
 .card{background:linear-gradient(160deg,color-mix(in srgb,var(--c) 14%,var(--card)),var(--card));border:1px solid var(--line);border-radius:22px;padding:14px;min-width:0}
 .top{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--mut)}
 .ic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:19px;background:color-mix(in srgb,var(--c) 22%,transparent)}
@@ -103,21 +116,12 @@ button.tab.on,button.tab.on:hover{background:#14224d;color:#6ee0ff}
 .comp-item img{width:100%;height:140px;object-fit:contain;border-radius:14px;margin-bottom:8px;background:#ffffff;padding:6px}
 .comp-item h4{margin:6px 0 0;font-size:13px;color:#e8ecff}
 
-/* تأثير النيون المضيء والمتحرك بألوان متدرجة لخانة التصميم */
-@keyframes neonGlow {
-  0% { box-shadow: 0 0 15px #1de9ff, inset 0 0 10px #1de9ff; border-color: #1de9ff; }
-  33% { box-shadow: 0 0 25px #9b7bff, inset 0 0 15px #9b7bff; border-color: #9b7bff; }
-  66% { box-shadow: 0 0 25px #ffd043, inset 0 0 15px #ffd043; border-color: #ffd043; }
-  100% { box-shadow: 0 0 20px #3ee0c4, inset 0 0 10px #3ee0c4; border-color: #3ee0c4; }
-}
 .neon-design-card {
   background: linear-gradient(135deg, #0d1733, #14224d);
   border: 2px solid #1de9ff;
   border-radius: 26px;
   padding: 16px;
   text-align: center;
-  animation: neonGlow 4s infinite alternate;
-  transition: transform 0.3s ease;
 }
 .neon-design-card img {
   width: 100%;
@@ -183,11 +187,11 @@ if(v===OK){try{localStorage.setItem('auth',OK)}catch(x){}lg.style.display='none'
 </div>
 </div></section>
 
-<!-- 3. التصميم (مخطط ربط القطع بتأثير النيون المضيء) -->
+<!-- 3. التصميم (تم ربط الصورة الصحيحة Screenshot 2026-10-25 021749.png) -->
 <section id="page-design" class="page-section" hidden><div class="in">
 <div class="th"><h2>تصميم ومخطط ربط القطع</h2></div>
 <div class="neon-design-card">
- <img src="design.jpg" alt="مخطط ربط القطع في النظام الذكي">
+ <img src="Screenshot 2026-10-25 021749.png" alt="مخطط ربط القطع في النظام الذكي">
  <p style="margin:12px 0 0;font-size:14px;color:#8a94c2;">مخطط تفصيلي يوضح مسارات الطاقة وإشارات الحساسات والمتحكم الدقيق ESP32</p>
 </div>
 </div></section>
