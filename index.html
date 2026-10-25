@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>نظام المراقبة الذكي</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#0a0e1f">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="النظام الذكي">
@@ -35,7 +36,6 @@ button:hover{background:#3a2d16}button:focus-visible{outline:2px solid var(--g)}
 button.reset{color:var(--txt);background:#1f2a52}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
-/* تأثير البريق والنيون المتحرك والشامل لكل الكروت والأقسام بالموقع */
 @keyframes neonGlow {
   0% { box-shadow: 0 0 15px #1de9ff, inset 0 0 10px #1de9ff; border-color: #1de9ff; }
   33% { box-shadow: 0 0 25px #9b7bff, inset 0 0 15px #9b7bff; border-color: #9b7bff; }
@@ -148,7 +148,7 @@ button.tab.on,button.tab.on:hover{background:#14224d;color:#6ee0ff}
 </style>
 </head>
 <body>
-<div id="lg" class="grid-bg" style="position:fixed;inset:0;z-index:9999;background-color:#050914;display:none;align-items:center;justify-content:center;padding:20px;font-family:Cairo,Tahoma,sans-serif;overflow:auto">
+<div id="lg" class="grid-bg" style="position:fixed;inset:0;z-index:9999;background-color:#0a0e1f;display:none;align-items:center;justify-content:center;padding:20px;font-family:Cairo,Tahoma,sans-serif;overflow:auto">
 <form id="lgf" class="lcard">
 <img src="apple-touch-icon.png" alt="النظام الذكي" width="116" height="116">
 <h2>نظام المراقبة الذكي</h2>
@@ -187,7 +187,7 @@ if(v===OK){try{localStorage.setItem('auth',OK)}catch(x){}lg.style.display='none'
 </div>
 </div></section>
 
-<!-- 3. التصميم (تم ربط الصورة الصحيحة Screenshot 2026-10-25 021749.png) -->
+<!-- 3. التصميم -->
 <section id="page-design" class="page-section" hidden><div class="in">
 <div class="th"><h2>تصميم ومخطط ربط القطع</h2></div>
 <div class="neon-design-card">
@@ -252,7 +252,6 @@ if(v===OK){try{localStorage.setItem('auth',OK)}catch(x){}lg.style.display='none'
 <button type="button" class="lbtn alt" id="logout" style="margin-top:22px">تسجيل الخروج</button>
 </div></section>
 
-<!-- شريط التنقل السفلي بـ 8 خانات كاملة -->
 <nav class="tabs" aria-label="التنقل">
  <button type="button" class="tab on" id="tab-dash"><span>📊</span>الرئيسية</button>
  <button type="button" class="tab" id="tab-intro"><span>📌</span>المقدمة</button>
